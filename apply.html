@@ -169,7 +169,7 @@
                         <p><i class="fas fa-exclamation-triangle me-2"></i> Внимательно заполните все поля формы. Неполные или некорректные заявки не рассматриваются.</p>
                     </div>
                     <div class="application-form">
-                        <form id="applicationForm" action="http://t.me/BELYI94" method="GET">
+                        <form id="applicationForm" onsubmit="return submitForm(event)">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="nickname" class="form-label">
@@ -257,69 +257,49 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Обработка загрузки фото
-        document.getElementById('photoInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('Файл слишком большой. Максимальный размер 5MB');
-                    this.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('photoPreview');
-                    preview.src = e.target.result;
-                    preview.classList.add('active');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Обработка отправки формы
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function submitForm(event) {
+            event.preventDefault();
             
-            const photoInput = document.getElementById('photoInput');
-            if (!photoInput.files[0]) {
-                alert('Пожалуйста, загрузите фотографию профиля');
-                return;
-            }
-
-            const formData = {
-                nickname: document.getElementById('nickname').value,
-                age: document.getElementById('age').value,
-                experience: document.getElementById('experience').value,
-                rank: document.getElementById('rank').value,
-                playtime: document.getElementById('playtime').value,
-                motivation: document.getElementById('motivation').value,
-                telegram: document.getElementById('telegram').value,
-                photo: document.getElementById('photoPreview').src
-            };
-
-            const message = `Новая заявка:\n
-Никнейм: ${formData.nickname}
-Возраст: ${formData.age}
-Опыт: ${formData.experience} лет
-Ранг: ${formData.rank}
-Время игры: ${formData.playtime} ч/день
-Мотивация: ${formData.motivation}
-Telegram: ${formData.telegram}`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.location.href = `http://t.me/BELYI94?text=${encodedMessage}`;
-        });
-
-        // Улучшение UX для мобильных устройств
-        if (window.innerWidth <= 768) {
-            document.querySelectorAll('input, select, textarea').forEach(element => {
-                element.addEventListener('focus', function() {
-                    setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
-                });
+            const form = document.getElementById('applicationForm');
+            const formData = new FormData(form);
+            
+            let message = 'Новая заявка в гильдию:\\n\\n';
+            formData.forEach((value, key) => {
+                // Экранируем специальные символы для MarkdownV2
+                const escapedValue = value.toString().replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+                const escapedKey = key.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+                message += `*${escapedKey}*: ${escapedValue}\\n`;
             });
+            
+            const botToken = '6893765844:AAGDhTDHNMzWVLdHOTrZGQjXBYJFHpWXQbA';
+            const chatId = '2142409677';
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'MarkdownV2'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                    form.reset();
+                } else {
+                    throw new Error('Ошибка при отправке сообщения');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+            });
+            
+            return false;
         }
     </script>
 </body>
