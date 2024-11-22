@@ -45,9 +45,9 @@
                         <h1 class="mb-4">Элитное сообщество<br class="d-none d-lg-block">игроков FREE FIRE</h1>
                         <p class="lead mb-4">Присоединяйтесь к профессиональному игровому сообществу. Развивайтесь вместе с лучшими игроками и достигайте новых высот в FREE FIRE.</p>
                         <div class="d-grid gap-2 d-md-block">
-                            <a href="apply.html" class="btn btn-primary btn-lg" onclick="window.location.href='apply.html'">
+                            <button onclick="goToApply()" class="btn btn-primary btn-lg">
                                 <i class="fas fa-gamepad me-2"></i>Присоединиться к гильдии
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="col-lg-5 d-none d-lg-block">
@@ -329,5 +329,10 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function goToApply() {
+            window.location.href = 'apply.html';
+        }
+    </script>
 </body>
 </html>
