@@ -409,6 +409,203 @@ section h2 {
     font-size: 2rem;
 }
 
+/* Section Headers */
+.section-header {
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Achievement Cards */
+.achievement-card {
+    background: rgba(15, 23, 41, 0.8);
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(0, 136, 204, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    border-color: #6c5ce7;
+}
+
+.achievement-card:hover::before {
+    opacity: 1;
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    color: #6c5ce7;
+    margin-bottom: 1rem;
+}
+
+.achievement-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #6c5ce7, #0088cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.achievement-text {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Why Us Cards */
+.why-us-card {
+    background: rgba(15, 23, 41, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.why-us-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(0, 136, 204, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.why-us-card:hover {
+    transform: translateY(-5px);
+    border-color: #6c5ce7;
+}
+
+.why-us-card:hover::before {
+    opacity: 1;
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #6c5ce7, #0088cc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-icon i {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.why-us-card h4 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.why-us-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Requirements Section */
+.requirements-container {
+    padding: 2rem;
+    background: rgba(15, 23, 41, 0.8);
+    border-radius: 20px;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.requirement-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(108, 92, 231, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+.requirement-card:hover {
+    transform: translateY(-5px);
+    background: rgba(108, 92, 231, 0.15);
+    border-color: #6c5ce7;
+}
+
+.requirement-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg, #6c5ce7, #0088cc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.requirement-icon i {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.requirement-card h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.requirement-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .hero-section {
         padding: 2rem 1rem;
@@ -495,6 +692,52 @@ section h2 {
     .benefit-card p {
         font-size: 0.9rem;
     }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .achievement-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .achievement-icon {
+        font-size: 2rem;
+    }
+    
+    .achievement-number {
+        font-size: 2rem;
+    }
+    
+    .why-us-card {
+        padding: 1.5rem;
+    }
+    
+    .card-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .card-icon i {
+        font-size: 1.2rem;
+    }
+    
+    .requirement-card {
+        padding: 1.5rem;
+    }
+    
+    .requirement-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .requirement-icon i {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -513,6 +756,15 @@ section h2 {
     .features-list li {
         font-size: 0.9rem;
         padding: 0.7rem 0.9rem;
+    }
+    
+    .requirements-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.75rem;
     }
 }
 
