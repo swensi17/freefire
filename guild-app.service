@@ -1,0 +1,14 @@
+[Unit]
+Description=Guild Application Web Service
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/path/to/your/app
+Environment="PATH=/path/to/your/app/venv/bin"
+ExecStart=/path/to/your/app/venv/bin/gunicorn -c gunicorn_config.py app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

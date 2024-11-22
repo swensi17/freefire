@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card animate-fade-in">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0"><i class="fas fa-users-cog me-2"></i>Панель администратора</h2>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary animate-pulse" onclick="filterApplications('all')">
+                            <i class="fas fa-list me-1"></i>Все
+                        </button>
+                        <button type="button" class="btn btn-outline-warning animate-pulse" onclick="filterApplications('pending')">
+                            <i class="fas fa-clock me-1"></i>Ожидающие
+                        </button>
+                        <button type="button" class="btn btn-outline-success animate-pulse" onclick="filterApplications('approved')">
+                            <i class="fas fa-check me-1"></i>Одобренные
+                        </button>
+                        <button type="button" class="btn btn-outline-danger animate-pulse" onclick="filterApplications('rejected')">
+                            <i class="fas fa-times me-1"></i>Отклоненные
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card bg-primary text-white animate-slide-left">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Всего заявок</h6>
+                            <h2 class="mt-2 mb-0">{{ applications|length }}</h2>
+                        </div>
+                        <i class="fas fa-clipboard-list fa-2x animate-float"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-warning text-dark animate-fade-in">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Ожидают рассмотрения</h6>
+                            <h2 class="mt-2 mb-0">{{ applications|selectattr('status', 'equalto', 'pending')|list|length }}</h2>
+                        </div>
+                        <i class="fas fa-hourglass-half fa-2x animate-float"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-success text-white animate-slide-right">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Одобрено</h6>
+                            <h2 class="mt-2 mb-0">{{ applications|selectattr('status', 'equalto', 'approved')|list|length }}</h2>
+                        </div>
+                        <i class="fas fa-check-circle fa-2x animate-float"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card animate-fade-in">
+        <div class="card-header">
+            <h3 class="mb-0"><i class="fas fa-list me-2"></i>Список заявок</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Возраст</th>
+                            <th>Discord</th>
+                            <th>Статус</th>
+                            <th>Дата</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in applications %}
+                        <tr class="application-row {{ application.status }}-row animate-fade-in" style="animation-delay: {{ loop.index0 * 0.1 }}s">
+                            <td>{{ application.name }}</td>
+                            <td>{{ application.age }}</td>
+                            <td>{{ application.discord }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'warning' if application.status == 'pending' else 'success' if application.status == 'approved' else 'danger' }}">
+                                    {{ 'Ожидает' if application.status == 'pending' else 'Одобрено' if application.status == 'approved' else 'Отклонено' }}
+                                </span>
+                            </td>
+                            <td>{{ application.date.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-info animate-pulse" onclick="viewApplication({{ application.id }})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-success animate-pulse" onclick="approveApplication({{ application.id }})">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger animate-pulse" onclick="rejectApplication({{ application.id }})">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="applicationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animate-fade-in">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-file-alt me-2"></i>Детали заявки</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-user me-2"></i>Личная информация</h6>
+                        <hr>
+                        <p><strong>Имя:</strong> <span id="modal-name"></span></p>
+                        <p><strong>Возраст:</strong> <span id="modal-age"></span></p>
+                        <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                        <p><strong>Discord:</strong> <span id="modal-discord"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-gamepad me-2"></i>Игровая информация</h6>
+                        <hr>
+                        <p><strong>Опыт:</strong> <span id="modal-experience"></span></p>
+                        <p><strong>Причина:</strong> <span id="modal-reason"></span></p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6><i class="fas fa-image me-2"></i>Скриншот</h6>
+                        <hr>
+                        <img id="modal-screenshot" src="" alt="Screenshot" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterApplications(status) {
+    const rows = document.querySelectorAll('.application-row');
+    rows.forEach(row => {
+        if (status === 'all' || row.classList.contains(status + '-row')) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function viewApplication(id) {
+    // Здесь должен быть AJAX запрос для получения данных заявки
+    const modal = new bootstrap.Modal(document.getElementById('applicationModal'));
+    modal.show();
+}
+
+function approveApplication(id) {
+    if (confirm('Вы уверены, что хотите одобрить эту заявку?')) {
+        // Здесь должен быть AJAX запрос для одобрения заявки
+    }
+}
+
+function rejectApplication(id) {
+    if (confirm('Вы уверены, что хотите отклонить эту заявку?')) {
+        // Здесь должен быть AJAX запрос для отклонения заявки
+    }
+}
+</script>
+{% endblock %}
