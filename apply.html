@@ -236,6 +236,16 @@
                                 <img id="photoPreview" class="photo-preview" alt="Preview">
                             </div>
 
+                            <div class="col-12 mb-3">
+                                <label for="screenshot" class="form-label">
+                                    <i class="fas fa-image me-2"></i>Скриншот профиля
+                                </label>
+                                <input type="file" class="form-control" id="screenshot" name="screenshot" accept="image/*" required>
+                                <div class="preview-container mt-2" style="display: none;">
+                                    <img id="imagePreview" src="#" alt="Предпросмотр" style="max-width: 100%; max-height: 300px;">
+                                </div>
+                            </div>
+
                             <div class="mb-4">
                                 <label for="telegram" class="form-label">
                                     <i class="fab fa-telegram me-2"></i>Telegram для связи
@@ -257,47 +267,96 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Предпросмотр изображения
+        document.getElementById('screenshot').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const previewContainer = document.querySelector('.preview-container');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
         function submitForm(event) {
             event.preventDefault();
             
             const form = document.getElementById('applicationForm');
             const formData = new FormData(form);
+            const screenshot = document.getElementById('screenshot').files[0];
             
-            let message = 'Новая заявка в гильдию:\\n\\n';
-            formData.forEach((value, key) => {
-                // Экранируем специальные символы для MarkdownV2
-                const escapedValue = value.toString().replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
-                const escapedKey = key.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
-                message += `*${escapedKey}*: ${escapedValue}\\n`;
-            });
-            
-            const botToken = '6893765844:AAGDhTDHNMzWVLdHOTrZGQjXBYJFHpWXQbA';
-            const chatId = '2142409677';
-            
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'MarkdownV2'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
-                    form.reset();
-                } else {
-                    throw new Error('Ошибка при отправке сообщения');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
-            });
+            // Конвертируем изображение в base64
+            if (screenshot) {
+                const reader = new FileReader();
+                reader.readAsDataURL(screenshot);
+                reader.onload = function() {
+                    const base64Image = reader.result.split(',')[1];
+                    
+                    let message = 'Новая заявка в гильдию:\\n\\n';
+                    formData.forEach((value, key) => {
+                        if (key !== 'screenshot') {
+                            // Экранируем специальные символы для MarkdownV2
+                            const escapedValue = value.toString().replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+                            const escapedKey = key.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+                            message += `*${escapedKey}*: ${escapedValue}\\n`;
+                        }
+                    });
+                    
+                    const botToken = '6893765844:AAGDhTDHNMzWVLdHOTrZGQjXBYJFHpWXQbA';
+                    const chatId = '2142409677';
+                    
+                    // Сначала отправляем текстовое сообщение
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'MarkdownV2'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            // Затем отправляем изображение
+                            return fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    photo: base64Image,
+                                    caption: 'Скриншот профиля'
+                                })
+                            });
+                        } else {
+                            throw new Error('Ошибка при отправке сообщения');
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                            form.reset();
+                            document.querySelector('.preview-container').style.display = 'none';
+                        } else {
+                            throw new Error('Ошибка при отправке изображения');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+                    });
+                };
+            }
             
             return false;
         }
