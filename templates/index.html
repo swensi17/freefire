@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Гильдия{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 animate-fade-in">
+                <h1>Элитное сообщество <br>игроков</h1>
+                <p class="lead">Присоединяйтесь к профессиональному игровому сообществу. Развивайтесь вместе с лучшими игроками и достигайте новых высот.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ url_for('apply') }}" class="btn btn-primary animate-pulse">
+                        Подать заявку
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-image animate-float">
+                    <i class="fas fa-gamepad fa-9x gradient-text"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card card h-100 animate-slide-left">
+                <div class="card-body">
+                    <i class="fas fa-users animate-float"></i>
+                    <h3>Профессионалы</h3>
+                    <p>Станьте частью элитного сообщества опытных игроков. Учитесь у лучших и развивайтесь вместе с нами.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card card h-100 animate-fade-in">
+                <div class="card-body">
+                    <i class="fas fa-trophy animate-float"></i>
+                    <h3>Турниры</h3>
+                    <p>Участвуйте в эксклюзивных турнирах, получайте ценные призы и развивайте свои навыки.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card card h-100 animate-slide-right">
+                <div class="card-body">
+                    <i class="fas fa-crown animate-float"></i>
+                    <h3>Достижения</h3>
+                    <p>Получайте уникальные награды, поднимайтесь по рейтингу и станьте легендой гильдии.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 g-4">
+        <div class="col-lg-6">
+            <div class="card animate-slide-left h-100">
+                <div class="card-body">
+                    <h3 class="gradient-text mb-4">Преимущества</h3>
+                    <ul class="features-list">
+                        <li class="animate-slide-left">Эксклюзивные игровые стратегии</li>
+                        <li class="animate-slide-left">Профессиональные тренировки</li>
+                        <li class="animate-slide-left">Командные турниры</li>
+                        <li class="animate-slide-left">Система рангов и наград</li>
+                        <li class="animate-slide-left">Поддержка опытных игроков</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card animate-slide-right h-100">
+                <div class="card-body">
+                    <h3 class="gradient-text mb-4">Требования</h3>
+                    <ul class="features-list">
+                        <li class="animate-slide-right">Возраст от 18 лет</li>
+                        <li class="animate-slide-right">Активное участие в гильдии</li>
+                        <li class="animate-slide-right">Наличие Telegram</li>
+                        <li class="animate-slide-right">Стремление к развитию</li>
+                        <li class="animate-slide-right">Уважение к сообществу</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="gradient-text mb-4">Готовы присоединиться?</h2>
+                <p class="lead mb-4">Станьте частью элитного сообщества уже сегодня</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ url_for('apply') }}" class="btn btn-primary animate-pulse">
+                        Подать заявку
+                    </a>
+                    <a href="http://t.me/BELYI94" class="btn btn-secondary animate-pulse" target="_blank">
+                        <i class="fab fa-telegram me-2"></i>Автор
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

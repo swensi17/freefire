@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="application-form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="form-card">
+                    <!-- Requirements Section -->
+                    <div class="requirements-card">
+                        <h3>
+                            ТРЕБОВАНИЯ К УЧАСТНИКАМ
+                        </h3>
+                        
+                        <div class="important-notice mb-4">
+                            <p class="highlight">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                ВНИМАНИЕ! ИСПЫТАТЕЛЬНЫЙ СРОК НЕДЕЛЯ!
+                            </p>
+                            <p class="highlight">
+                                <i class="fas fa-user-shield me-2"></i>
+                                ВНИМАНИЕ! АККАУНТ ДОЛЖЕН ПРИНАДЛЕЖАТЬ ТОЛЬКО ВАМ!
+                            </p>
+                        </div>
+
+                        <ul class="requirements-list">
+                            <li>
+                                <i class="fas fa-star-of-life"></i>
+                                От 5000 очков актива в гильдию в неделю
+                            </li>
+                            <li>
+                                <i class="fas fa-users-cog"></i>
+                                В гильдии играем только с согильдийцами
+                            </li>
+                            <li>
+                                <i class="fas fa-trophy"></i>
+                                От 100 очков в турнире гильдий (ср, сб, вс)
+                            </li>
+                            <li class="special-time">
+                                <i class="fas fa-hourglass-half"></i>
+                                С 18:00 до 21:00 (МСК)
+                            </li>
+                        </ul>
+                        
+                        <div class="rules-notice">
+                            <p>
+                                <i class="fas fa-scroll me-2"></i>
+                                Полные правила в закреплённых сообщениях в беседе гильдии.
+                                <br>К прочтению обязательны.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {{ form.csrf_token }}
+                        
+                        <div class="form-group mb-4">
+                            <label for="{{ form.name.id }}" class="form-label">{{ form.name.label }}</label>
+                            {{ form.name(class="form-control custom-input", placeholder="Ваше имя") }}
+                            {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.age.id }}" class="form-label">{{ form.age.label }}</label>
+                            {{ form.age(class="form-control custom-input", placeholder="Ваш возраст (от 18 лет)") }}
+                            {% if form.age.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.age.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.timezone.id }}" class="form-label">{{ form.timezone.label }}</label>
+                            {{ form.timezone(class="form-control custom-input", placeholder="Ваш город или часовой пояс") }}
+                            {% if form.timezone.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.timezone.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.game_id.id }}" class="form-label">{{ form.game_id.label }}</label>
+                            {{ form.game_id(class="form-control custom-input", placeholder="Ваш ID в игре") }}
+                            {% if form.game_id.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.game_id.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.game_time.id }}" class="form-label">{{ form.game_time.label }}</label>
+                            {{ form.game_time(class="form-control custom-input", placeholder="Сколько часов в день вы играете") }}
+                            {% if form.game_time.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.game_time.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.screenshots.id }}" class="form-label">{{ form.screenshots.label }}</label>
+                            {{ form.screenshots(class="form-control custom-input") }}
+                            <small class="text-muted">Загрузите скриншот вашего игрового профиля</small>
+                            {% if form.screenshots.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.screenshots.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="{{ form.additional_info.id }}" class="form-label">{{ form.additional_info.label }}</label>
+                            {{ form.additional_info(class="form-control custom-input", rows="3", placeholder="Дополнительная информация (необязательно)") }}
+                            {% if form.additional_info.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.additional_info.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-primary btn-lg submit-button">
+                                <i class="fas fa-paper-plane me-2"></i>Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
