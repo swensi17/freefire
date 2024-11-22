@@ -1,25 +1,35 @@
-# Free Fire Website
+# RED WOLVES Guild Website
 
-This is a website dedicated to Free Fire, the popular battle royale game. The website features information about the game, characters, and includes a contact form.
+Официальный сайт гильдии RED WOLVES. Сайт разработан для привлечения новых участников и обработки заявок на вступление в гильдию.
 
-## Features
+## Особенности
 
-- Responsive design
-- Modern UI/UX
-- Character information
-- Contact form
-- Mobile-friendly layout
+- Современный дизайн с анимациями
+- Адаптивная верстка для всех устройств
+- Форма подачи заявки с валидацией
+- Интеграция с Telegram для связи
+- Темная тема с градиентными эффектами
 
-## Structure
+## Структура проекта
 
-- `index.html` - Main HTML file
-- `styles.css` - CSS styling file
+- `index.html` - Главная страница
+- `apply.html` - Страница подачи заявки
+- `css/style.css` - Стили сайта
 
-## Setup
+## Технологии
 
-1. Clone the repository
-2. Open `index.html` in your web browser
+- HTML5
+- CSS3 с современными анимациями
+- JavaScript
+- Bootstrap 5
+- Font Awesome
+- Google Fonts (Inter, Orbitron)
 
-## Contributing
+## Установка
 
-Feel free to submit issues and enhancement requests!
+1. Склонируйте репозиторий
+2. Откройте `index.html` в браузере
+
+## Контакты
+
+Telegram для связи: [@BELYI94](http://t.me/BELYI94)
