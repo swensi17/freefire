@@ -499,6 +499,47 @@ body {
     line-height: 1.5;
 }
 
+/* Banner Styles */
+.banner-section {
+    width: 100%;
+    background: var(--dark-bg);
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.banner-image:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive Banner */
+@media (max-width: 768px) {
+    .banner-section {
+        padding: 10px 0;
+    }
+    
+    .banner-container {
+        padding: 0 10px;
+    }
+    
+    .banner-image {
+        border-radius: 10px;
+    }
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .hero-section {
