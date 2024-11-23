@@ -50,24 +50,13 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: url('../img/image.png') no-repeat center center fixed;
-    background-size: cover;
+    background-color: var(--dark-bg);
     color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 23, 41, 0.85); /* Затемнение фона */
-    z-index: -1;
+    font-family: 'Inter', sans-serif;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
+    background-attachment: fixed;
 }
 
 .navbar {
@@ -171,26 +160,29 @@ body::before {
 }
 
 .hero-section {
-    background: linear-gradient(135deg, rgba(13, 17, 23, 0.95), rgba(0, 136, 204, 0.15));
-    padding: 6rem 0;
     position: relative;
+    padding: 4rem 0;
+    margin: 1rem 0;
+    background: url('../img/image.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 25px;
     overflow: hidden;
-    border-radius: 60px;
-    border: 1px solid rgba(0, 136, 204, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    margin: 2rem;
 }
 
 .hero-section::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 136, 204, 0.1) 0%, transparent 50%);
-    animation: rotate 20s linear infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 41, 0.75);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-section h1 {
@@ -515,6 +507,7 @@ body::before {
     .hero-section {
         padding: 2rem 1rem;
         margin: 0.5rem;
+        border-radius: 15px;
     }
 
     .hero-section h1 {
@@ -594,6 +587,8 @@ body::before {
     
     .benefit-card p {
         font-size: 0.9rem;
+        margin-bottom: 0;
+        line-height: 1.5;
     }
     
     .section-header h2 {
