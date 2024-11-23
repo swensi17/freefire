@@ -16,26 +16,41 @@
             <a class="navbar-brand animate-float" href="#">
                 <span class="brand-text">RED WOLVES</span>
             </a>
-            <div class="nav-controls d-flex align-items-center">
-                <!-- Переключатель языка -->
+            
+            <!-- Кнопки для ПК версии -->
+            <div class="nav-controls-desktop d-none d-lg-flex">
                 <div class="language-switch me-3">
                     <button class="btn btn-lang" onclick="toggleLanguage()">
                         <i class="fas fa-globe"></i>
                         <span class="lang-text">RU</span>
                     </button>
                 </div>
-                <!-- Переключатель темы -->
                 <div class="theme-switch me-3">
                     <button class="btn btn-theme" onclick="toggleTheme()">
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
-                <!-- Кнопка меню для мобильных -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
+
+            <!-- Кнопка мобильного меню -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Кнопки для мобильной версии -->
+                <div class="nav-controls-mobile d-lg-none mb-3">
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn btn-lang mobile" onclick="toggleLanguage()">
+                            <i class="fas fa-globe"></i>
+                            <span class="lang-text">RU</span>
+                        </button>
+                        <button class="btn btn-theme mobile" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="#"><i class="fas fa-home me-2"></i>Главная</a>
@@ -331,38 +346,95 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Тексты для разных языков
+        const translations = {
+            ru: {
+                home: 'Главная',
+                apply: 'Подать заявку',
+                title: 'RED WOLVES',
+                subtitle: 'Элитное сообщество игроков Free Fire.<br>Присоединяйтесь к профессиональному игровому сообществу!',
+                joinButton: 'Подать заявку'
+            },
+            en: {
+                home: 'Home',
+                apply: 'Apply Now',
+                title: 'RED WOLVES',
+                subtitle: 'Elite Free Fire Gaming Community.<br>Join the professional gaming community!',
+                joinButton: 'Apply Now'
+            }
+        };
+
         // Переключение языка
         function toggleLanguage() {
-            const langText = document.querySelector('.lang-text');
-            if (langText.textContent === 'RU') {
-                langText.textContent = 'EN';
-            } else {
-                langText.textContent = 'RU';
-            }
+            const langTexts = document.querySelectorAll('.lang-text');
+            const currentLang = langTexts[0].textContent;
+            const newLang = currentLang === 'RU' ? 'EN' : 'RU';
+            const lang = newLang === 'RU' ? 'ru' : 'en';
+
+            // Обновляем текст кнопок языка
+            langTexts.forEach(text => text.textContent = newLang);
+
+            // Обновляем навигацию
+            document.querySelector('.nav-link[href="#"]').innerHTML = 
+                `<i class="fas fa-home me-2"></i>${translations[lang].home}`;
+            document.querySelector('.nav-link[href="apply.html"]').innerHTML = 
+                `<i class="fas fa-user-plus me-2"></i>${translations[lang].apply}`;
+
+            // Обновляем hero секцию
+            document.querySelector('.hero-title').textContent = translations[lang].title;
+            document.querySelector('.hero-subtitle').innerHTML = translations[lang].subtitle;
+            document.querySelector('.hero-button').textContent = translations[lang].joinButton;
+
+            // Сохраняем выбранный язык
+            localStorage.setItem('language', lang);
         }
 
         // Переключение темы
         function toggleTheme() {
-            const themeIcon = document.querySelector('.btn-theme i');
+            const themeIcons = document.querySelectorAll('.btn-theme i');
             const body = document.body;
-            
-            if (themeIcon.classList.contains('fa-moon')) {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                body.classList.add('light-theme');
-            } else {
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                body.classList.remove('light-theme');
-            }
-        }
+            const isDark = !body.classList.contains('light-theme');
 
-        // Закрытие мобильного меню при клике
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                const navbarCollapse = document.querySelector('.navbar-collapse');
-                if (navbarCollapse.classList.contains('show')) {
-                    navbarCollapse.classList.remove('show');
+            themeIcons.forEach(icon => {
+                if (isDark) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    body.classList.add('light-theme');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    body.classList.remove('light-theme');
                 }
             });
+
+            // Сохраняем выбранную тему
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+
+        // Загрузка сохраненных настроек
+        document.addEventListener('DOMContentLoaded', () => {
+            // Загружаем тему
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.querySelectorAll('.btn-theme i').forEach(icon => {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                });
+            }
+
+            // Загружаем язык
+            const savedLang = localStorage.getItem('language');
+            if (savedLang === 'en') {
+                document.querySelectorAll('.lang-text').forEach(text => text.textContent = 'EN');
+                const lang = 'en';
+                
+                document.querySelector('.nav-link[href="#"]').innerHTML = 
+                    `<i class="fas fa-home me-2"></i>${translations[lang].home}`;
+                document.querySelector('.nav-link[href="apply.html"]').innerHTML = 
+                    `<i class="fas fa-user-plus me-2"></i>${translations[lang].apply}`;
+                
+                document.querySelector('.hero-title').textContent = translations[lang].title;
+                document.querySelector('.hero-subtitle').innerHTML = translations[lang].subtitle;
+                document.querySelector('.hero-button').textContent = translations[lang].joinButton;
+            }
         });
     </script>
 </body>

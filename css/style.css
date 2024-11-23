@@ -296,4 +296,106 @@ body {
     }
 }
 
-/* ... */
+/* Стили для кнопок переключения */
+.btn-lang,
+.btn-theme {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    color: var(--text-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-lang:hover,
+.btn-theme:hover {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(0, 206, 201, 0.2));
+    border-color: rgba(108, 92, 231, 0.5);
+    color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.2);
+}
+
+.btn-lang i,
+.btn-theme i {
+    font-size: 1.2rem;
+    margin-right: 0.4rem;
+    background: linear-gradient(135deg, #6c5ce7, #00cec9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lang-text {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Мобильные кнопки */
+.btn-lang.mobile,
+.btn-theme.mobile {
+    padding: 0.8rem 1.5rem;
+    width: 120px;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.15), rgba(0, 206, 201, 0.15));
+    border: 1px solid rgba(108, 92, 231, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-lang.mobile:hover,
+.btn-theme.mobile:hover {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.25), rgba(0, 206, 201, 0.25));
+    border-color: rgba(108, 92, 231, 0.6);
+}
+
+.btn-lang.mobile i,
+.btn-theme.mobile i {
+    font-size: 1.3rem;
+}
+
+/* Мобильная навигация */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 20px;
+        margin-top: 1rem;
+        border: 1px solid rgba(108, 92, 231, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-toggler {
+        padding: 0.6rem 1rem;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        border: 1px solid rgba(108, 92, 231, 0.3);
+        border-radius: 15px;
+        background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-toggler:hover {
+        background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(0, 206, 201, 0.2));
+        border-color: rgba(108, 92, 231, 0.5);
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+        border-color: rgba(108, 92, 231, 0.5);
+    }
+
+    .nav-link {
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        margin: 0.3rem 0;
+    }
+
+    .nav-link:hover {
+        background: rgba(108, 92, 231, 0.1);
+    }
+}
