@@ -200,6 +200,30 @@ body {
     line-height: 1.6;
 }
 
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #6c5ce7, #0088cc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-text {
+    color: #ff3d00;
+    text-shadow: 2px 2px 4px rgba(255, 61, 0, 0.3);
+    font-size: 120%;
+    font-weight: 900;
+}
+
 .btn {
     padding: 0.6rem 1.5rem;
     border-radius: 8px;
@@ -607,6 +631,14 @@ body {
     
     .requirement-icon i {
         font-size: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .highlight-text {
+        font-size: 110%;
     }
 }
 
