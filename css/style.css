@@ -780,3 +780,112 @@ body {
 .scroll-to-top .telegram-link {
     margin-left: -15px;
 }
+
+/* Стили для кнопок переключения */
+.btn-lang,
+.btn-theme {
+    background: rgba(108, 92, 231, 0.1);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-lang:hover,
+.btn-theme:hover {
+    background: rgba(108, 92, 231, 0.2);
+    border-color: rgba(108, 92, 231, 0.3);
+    color: var(--text-color);
+    transform: translateY(-2px);
+}
+
+.btn-lang i,
+.btn-theme i {
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+}
+
+.lang-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Мобильная навигация */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: rgba(15, 23, 41, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        border: 1px solid rgba(108, 92, 231, 0.2);
+    }
+
+    .nav-controls {
+        order: 2;
+    }
+
+    .btn-lang,
+    .btn-theme {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .navbar-toggler {
+        padding: 0.4rem 0.8rem;
+        font-size: 1.1rem;
+        color: var(--text-color);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        border-radius: 12px;
+        background: rgba(108, 92, 231, 0.1);
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+        border-color: rgba(108, 92, 231, 0.4);
+    }
+}
+
+/* Светлая тема */
+.light-theme {
+    --bg-color: #f8f9fa;
+    --text-color: #2d3436;
+    --text-muted: #636e72;
+    --primary-color: #6c5ce7;
+    --secondary-color: #00cec9;
+}
+
+.light-theme .navbar {
+    background: rgba(248, 249, 250, 0.95);
+    border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+}
+
+.light-theme .hero-section::before {
+    background: linear-gradient(135deg, 
+        rgba(248, 249, 250, 0.9),
+        rgba(108, 92, 231, 0.3),
+        rgba(0, 206, 201, 0.2));
+}
+
+.light-theme .btn-lang,
+.light-theme .btn-theme {
+    background: rgba(108, 92, 231, 0.05);
+    border-color: rgba(108, 92, 231, 0.15);
+}
+
+.light-theme .btn-lang:hover,
+.light-theme .btn-theme:hover {
+    background: rgba(108, 92, 231, 0.1);
+    border-color: rgba(108, 92, 231, 0.2);
+}
+
+.light-theme .navbar-toggler {
+    background: rgba(108, 92, 231, 0.05);
+    border-color: rgba(108, 92, 231, 0.15);
+}
+
+.light-theme .navbar-collapse {
+    background: rgba(248, 249, 250, 0.95);
+    border-color: rgba(108, 92, 231, 0.15);
+}

@@ -16,9 +16,25 @@
             <a class="navbar-brand animate-float" href="#">
                 <span class="brand-text">RED WOLVES</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars" style="color: #fff;"></i>
-            </button>
+            <div class="nav-controls d-flex align-items-center">
+                <!-- Переключатель языка -->
+                <div class="language-switch me-3">
+                    <button class="btn btn-lang" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span class="lang-text">RU</span>
+                    </button>
+                </div>
+                <!-- Переключатель темы -->
+                <div class="theme-switch me-3">
+                    <button class="btn btn-theme" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <!-- Кнопка меню для мобильных -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -26,11 +42,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="apply.html"><i class="fas fa-user-plus me-2"></i>Подать заявку</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="telegram-nav-link" href="http://t.me/BELYI94" target="_blank">
-                            <i class="fab fa-telegram me-2"></i>Telegram
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -334,5 +345,40 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Переключение языка
+        function toggleLanguage() {
+            const langText = document.querySelector('.lang-text');
+            if (langText.textContent === 'RU') {
+                langText.textContent = 'EN';
+            } else {
+                langText.textContent = 'RU';
+            }
+        }
+
+        // Переключение темы
+        function toggleTheme() {
+            const themeIcon = document.querySelector('.btn-theme i');
+            const body = document.body;
+            
+            if (themeIcon.classList.contains('fa-moon')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                body.classList.add('light-theme');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                body.classList.remove('light-theme');
+            }
+        }
+
+        // Закрытие мобильного меню при клике
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
