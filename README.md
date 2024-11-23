@@ -2,7 +2,7 @@
 
 # RED WOLVES FREE FIRE
 
-[<img src="https://i.imgur.com/YZFv6VQ.png" alt="RED WOLVES Banner" width="100%">](https://t.me/BELYI94)
+[<img src="img/image.png" alt="RED WOLVES Banner" width="100%">](https://t.me/BELYI94)
 
 **Элитная гильдия, где каждый игрок - часть волчьей стаи**
 
