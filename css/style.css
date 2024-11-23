@@ -50,13 +50,24 @@
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: var(--text-color);
     font-family: 'Inter', sans-serif;
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
-    background-attachment: fixed;
+    background: url('../img/image.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 41, 0.85); /* Затемнение фона */
+    z-index: -1;
 }
 
 .navbar {
@@ -499,54 +510,11 @@ body {
     line-height: 1.5;
 }
 
-/* Banner Styles */
-.banner-section {
-    width: 100%;
-    background: var(--dark-bg);
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
-
-.banner-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.banner-image {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.3s ease;
-}
-
-.banner-image:hover {
-    transform: scale(1.02);
-}
-
-/* Responsive Banner */
-@media (max-width: 768px) {
-    .banner-section {
-        padding: 10px 0;
-    }
-    
-    .banner-container {
-        padding: 0 10px;
-    }
-    
-    .banner-image {
-        border-radius: 10px;
-    }
-}
-
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .hero-section {
         padding: 2rem 1rem;
         margin: 0.5rem;
-        border-radius: 20px;
-        text-align: center;
     }
 
     .hero-section h1 {
